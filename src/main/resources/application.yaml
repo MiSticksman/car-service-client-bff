@@ -1,0 +1,15 @@
+client:
+  gateway:
+    url: 'gatewayBaseUrl'
+  user-service:
+    url: '${client.gateway.url}/userServiceUrl'
+  car-service:
+    url: '${client.gateway.url}/carServiceUrl'
+  user-car-service:
+    url: '${client.gateway.url}/userCarServiceUrl'
+  work-service:
+    url: '${client.gateway.url}/workServiceUrl'
+  schedule-service:
+    url: '${client.gateway.url}/scheduleServiceUrl'
+  order-service:
+    url: '${client.gateway.url}/orderServiceUrl'

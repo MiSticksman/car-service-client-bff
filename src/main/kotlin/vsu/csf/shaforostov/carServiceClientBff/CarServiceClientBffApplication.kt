@@ -1,4 +1,4 @@
-package vsu.csf.shaforostov.car_service_client_bff
+package vsu.csf.shaforostov.carServiceClientBff
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
