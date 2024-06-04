@@ -7,6 +7,9 @@ import vsu.csf.shaforostov.carServiceClientBff.common.commonProcessClientRespons
 import vsu.csf.shaforostov.carServiceClientBff.config.HeadersProvider
 import vsu.csf.shaforostov.carServiceClientBff.orderService.client.dto.OrderDetailDto
 import vsu.csf.shaforostov.carServiceClientBff.orderService.client.dto.OrderDto
+import vsu.csf.shaforostov.carServiceClientBff.orderService.dto.request.OrderCancelRequest
+import vsu.csf.shaforostov.carServiceClientBff.orderService.dto.request.OrderCheckoutRequest
+import vsu.csf.shaforostov.carServiceClientBff.orderService.dto.request.OrderUpdateRequest
 
 @Component
 class OrderClient(
@@ -20,7 +23,7 @@ class OrderClient(
         .build()
 
 
-    fun getAllOrders(): Array<OrderDto> {
+    fun getOrders(): Array<OrderDto> {
         return restClient.get()
             .uri("")
             .headers { it.setBearerAuth(headers.getAuthorizationHeader()) }
@@ -31,16 +34,42 @@ class OrderClient(
 
     fun getOrderById(id: Long): OrderDetailDto {
         return restClient.get()
-            .uri("")
+            .uri("path/$id")
             .headers { it.setBearerAuth(headers.getAuthorizationHeader()) }
             .retrieve()
             .toEntity(OrderDetailDto::class.java)
             .commonProcessClientResponse()
     }
 
-    fun checkout() {
-
+    // order create endpoint
+    fun checkout(request: OrderCheckoutRequest): OrderDetailDto {
+        return restClient.post()
+            .uri("")
+            .body(request)
+            .headers { it.setBearerAuth(headers.getAuthorizationHeader()) }
+            .retrieve()
+            .toEntity(OrderDetailDto::class.java)
+            .commonProcessClientResponse()
     }
 
+    fun updateOrder(request: OrderUpdateRequest): OrderDetailDto {
+        return restClient.patch()
+            .uri("")
+            .body(request)
+            .headers { it.setBearerAuth(headers.getAuthorizationHeader()) }
+            .retrieve()
+            .toEntity(OrderDetailDto::class.java)
+            .commonProcessClientResponse()
+    }
+
+    fun cancelOrder(request: OrderCancelRequest) {
+        restClient.patch()
+            .uri("")
+            .body(request)
+            .headers { it.setBearerAuth(headers.getAuthorizationHeader()) }
+            .retrieve()
+            .toBodilessEntity()
+            .commonProcessClientResponse()
+    }
 
 }
